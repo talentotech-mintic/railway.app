@@ -10,8 +10,9 @@ import LoginModal from './components/LoginModal';
 import AddProductModal from './components/AddProductModal';
 import SearchBar from "./components/SearchBar";
 
-// Asegúrate de que REACT_APP_API_URL esté configurado en tu archivo .env
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
+console.log(API_URL);
 
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +25,7 @@ function App() {
     const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
+
     const [products, setProducts] = useState([]);
     const [users, setUsers] = useState([]);
 
@@ -56,12 +58,10 @@ function App() {
     }, [cart]);
 
     useEffect(() => {
-        if (Array.isArray(products)) {
-            const results = products.filter(product =>
-                product.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            setFilteredProducts(results);
-        }
+        const results = products.filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredProducts(results);
     }, [searchTerm, products]);
 
     const openModal = (product) => {
@@ -70,45 +70,45 @@ function App() {
     };
 
     const addToCart = (product) => {
-        setCart(prevCart => [...prevCart, product]);
+        setCart([...cart, product]);
     };
 
     const removeFromCart = (productId) => {
-        setCart(prevCart => prevCart.filter(item => item.id !== productId));
+        setCart(cart.filter(item => item.id !== productId));
     };
 
     const register = async (username, password) => {
         try {
-            await axios.post(`${API_URL}/users/register`, { username, password });
+            await axios.post(API_URL+'/users/register', { username, password });
             alert('Registro exitoso. Por favor, inicia sesión.');
             setIsLoginModalOpen(true);
         } catch (error) {
-            alert('Error en el registro: ' + error.response?.data?.message || error.message);
+            alert('Error en el registro: ' + error.response.data.message);
         }
     };
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post(`${API_URL}/users/login`, { username, password });
+            const response = await axios.post(API_URL+'/users/login', { username, password });
             setIsLoggedIn(true);
             setIsAdmin(response.data.isAdmin);
-            localStorage.setItem('token', response.data.token);
+            console.log(response.data)
             setIsLoginModalOpen(false);
+            localStorage.setItem('token', response.data.token);
         } catch (error) {
-            alert('Error en el inicio de sesión: ' + error.response?.data?.message || error.message);
+            alert('Error en el inicio de sesión: ' + error.response.data.message);
         }
     };
 
     const logout = () => {
         setIsLoggedIn(false);
         setIsAdmin(false);
-        localStorage.removeItem('token');
     };
 
     const addProduct = async (newProduct) => {
         try {
-            const response = await axios.post(`${API_URL}/products`, newProduct);
-            setProducts(prevProducts => [...prevProducts, response.data]);
+            const response = await axios.post(API_URL+'/products', newProduct);
+            setProducts([...products, response.data]);
             setIsAddProductModalOpen(false);
         } catch (error) {
             console.error('Error adding product:', error);
@@ -126,6 +126,7 @@ function App() {
                 logout={logout}
                 openAddProductModal={() => setIsAddProductModalOpen(true)}
             />
+
 
             <main className="flex-grow container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
