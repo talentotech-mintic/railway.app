@@ -12,6 +12,8 @@ import SearchBar from "./components/SearchBar";
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
+console.log(API_URL);
+
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
