@@ -5,16 +5,14 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/miTienda';
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017/miTienda', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(MONGODB_URI, {})
     .then(() => console.log('Conectado a MongoDB'))
     .catch((err) => console.error('Error de conexión a MongoDB:', err));
 

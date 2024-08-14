@@ -10,6 +10,8 @@ import LoginModal from './components/LoginModal';
 import AddProductModal from './components/AddProductModal';
 import SearchBar from "./components/SearchBar";
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -31,7 +33,7 @@ function App() {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/products');
+            const response = await axios.get(API_URL+'/products');
             setProducts(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -71,7 +73,7 @@ function App() {
 
     const register = async (username, password) => {
         try {
-            await axios.post('http://localhost:5000/api/users/register', { username, password });
+            await axios.post(API_URL+'/users/register', { username, password });
             alert('Registro exitoso. Por favor, inicia sesión.');
             setIsLoginModalOpen(true);
         } catch (error) {
@@ -81,7 +83,7 @@ function App() {
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/users/login', { username, password });
+            const response = await axios.post(API_URL+'/users/login', { username, password });
             setIsLoggedIn(true);
             setIsAdmin(response.data.isAdmin);
             console.log(response.data)
@@ -99,7 +101,7 @@ function App() {
 
     const addProduct = async (newProduct) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/products', newProduct);
+            const response = await axios.post(API_URL+'/products', newProduct);
             setProducts([...products, response.data]);
             setIsAddProductModalOpen(false);
         } catch (error) {
