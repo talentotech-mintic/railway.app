@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/miTienda';
+app.use(express.static(path.join(__dirname, '../Frontend/build')));
+
 
 // Middleware
 app.use(cors());
