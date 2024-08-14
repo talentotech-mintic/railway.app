@@ -15,7 +15,7 @@ app.use(express.json());
 mongoose.connect(MONGODB_URI, {})
     .then(() => console.log('Conectado a MongoDB'))
     .catch((err) => console.error('Error de conexión a MongoDB:', err));
-
+console.log(MONGODB_URI)
 // Rutas
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
