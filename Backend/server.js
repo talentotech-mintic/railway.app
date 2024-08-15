@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -14,8 +15,13 @@ app.use(express.json());
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/miTienda';
 
 // Rutas
+app.use(express.static(path.join(__dirname, '../Frontend/build')));
+
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/build/index.html'));
+});
 
 if (process.env.NODE_ENV !== 'test') {
     const PORT = process.env.PORT || 5000;

@@ -43,10 +43,10 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v3  # Actualizado a la última versión
+      - uses: actions/checkout@v3
 
       - name: Use Node.js
-        uses: actions/setup-node@v3  # Actualizado a la última versión
+        uses: actions/setup-node@v3
         with:
           node-version: '18'  # Actualizado a la versión más reciente de LTS
 
