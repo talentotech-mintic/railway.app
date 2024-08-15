@@ -7,6 +7,11 @@
     "install:server": "cd Backend && npm install",
     "build:client": "cd Frontend && npm run build",
     "build": "npm run install:client && npm run install:server && npm run build:client",
-    "start": "cd Backend && npm start"
+    "start": "cd Backend && npm start",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "npm run cypress:run",
+    "test:backend": "cd Backend && npm test",
+    "cypress:open": "npx cypress open",
+    "cypress:run": "npx cypress run"
   }
 }
