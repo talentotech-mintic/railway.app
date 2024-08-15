@@ -11,21 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3  # Actualizado a la última versión
+      - uses: actions/checkout@v3
 
       - name: Use Node.js
-        uses: actions/setup-node@v3  # Actualizado a la última versión
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Actualizado a la versión más reciente de LTS
+          node-version: '18'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run Jest tests
         run: npm run test
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
 
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v6.7.2  # Actualizado a la última versión
+        uses: cypress-io/github-action@v6
         with:
           build: npm run build
           start: npm start
