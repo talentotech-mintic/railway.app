@@ -35,7 +35,6 @@ jobs:
           wait-on: 'http://localhost:5000'
 
       - name: Integration Test
-        uses: cypress-io/github-action@v6
         run: npm test
 
   deploy:
