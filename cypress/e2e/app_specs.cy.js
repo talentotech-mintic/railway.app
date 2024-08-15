@@ -1,4 +1,4 @@
-describe('E-commerce App', () => {
+describe('Vitrina Comercial', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000');
     });
