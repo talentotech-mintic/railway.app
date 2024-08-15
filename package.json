@@ -13,5 +13,8 @@
     "test:backend": "cd Backend && npm test",
     "cypress:open": "npx cypress open",
     "cypress:run": "npx cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.13.3"
   }
 }
