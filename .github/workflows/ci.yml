@@ -37,7 +37,7 @@ jobs:
         run: npx wait-on http://localhost:5000
 
       - name: Test
-        run: npm tests
+        run: npm test
 
   deploy:
     needs: test
